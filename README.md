@@ -1,0 +1,247 @@
+# 🏙️ PropIQ — AI-Powered Real Estate Intelligence Platform
+
+> End-to-end machine learning platform for Indian property valuation, investment analysis, and risk assessment.
+
+---
+
+## 📌 Overview
+
+PropIQ is a complete AI-driven Real Estate Intelligence Platform that helps investors, buyers, and real estate analysts make smarter property decisions using Machine Learning, Explainable AI, and Business Intelligence — all through an interactive Streamlit dashboard.
+
+**Built as a college final year project** covering the full data science lifecycle: data collection → cleaning → EDA → feature engineering → model training → explainability → deployment.
+
+---
+
+## 🎯 What It Can Do
+
+| Capability | Description |
+|---|---|
+| 💰 Price Prediction | Predict property value using 34 engineered features (XGBoost R²=0.9769) |
+| 📈 Investment ROI | Estimate return on investment, identify undervalued vs overvalued properties |
+| ✅ Buy / Hold / Sell | AI-powered investment recommendations based on ROI and risk |
+| ⚠️ Risk Scoring | Multi-factor risk score — Low / Medium / High |
+| 🧠 Explainable AI | SHAP global and local explanations for every prediction |
+| 🔮 Price Forecasting | 1-year, 3-year, 5-year price projections using city-tier CAGR |
+| 🔍 Property Comparison | Side-by-side comparison of two properties across all metrics |
+| 🌆 Market Insights | Top investment areas, high-growth cities, low-risk zones |
+| 🏆 Property Ranking | Auto-rank top 10 properties from any dataset |
+| ⚡ Real-Time Analyzer | Upload any CSV and get instant predictions + risk + recommendations |
+| 🤖 AI Chat Assistant | PropBot — multi-provider AI chatbot (Groq, Gemini, OpenAI, Mistral, Cohere, Claude) |
+
+---
+
+## 📊 Dataset
+
+| Attribute | Value |
+|---|---|
+| Primary Source | [Kaggle — ankushpanday1/india-house-price-prediction](https://www.kaggle.com/datasets/ankushpanday1/india-house-price-prediction) |
+| Secondary Source | Census 2011 — Population density by city/state |
+| Records | 2,50,000 |
+| Original Features | 23 |
+| Engineered Features | 12 |
+| Final Model Features | 34 |
+| Cities | 42 |
+| States | 20 |
+| Target Variable | `Estimated_Price` (domain-weighted) |
+
+> **Note:** The `data/` folder is excluded from this repository due to file size. Download the dataset from Kaggle and place it at `data/raw/india_housing_prices.csv`, then run notebooks in order to regenerate processed files.
+
+---
+
+## 🤖 Model Performance
+
+All models trained on 2,00,000 records · Tested on 50,000 records · 34 features
+
+| Model | MAE | MSE | RMSE | R² |
+|---|---|---|---|---|
+| **XGBoost** ✅ | **13.68** | **325.00** | **18.03** | **0.9769** |
+| LightGBM | 13.75 | 328.03 | 18.11 | 0.9767 |
+| Random Forest | 13.29 | 331.01 | 18.19 | 0.9764 |
+| CatBoost | 15.30 | 412.66 | 20.31 | 0.9706 |
+| Gradient Boosting | 19.00 | 688.60 | 26.24 | 0.9510 |
+| Linear Regression | 31.64 | 2010.92 | 44.84 | 0.8569 |
+
+**Best Model:** XGBoost — Train R²: 0.9784 · Test R²: 0.9769 · Difference: 0.0015 (**Healthy fit, no overfitting**)
+
+---
+
+## 🔍 Top SHAP Features (What Drives Price)
+
+| Rank | Feature | SHAP Importance |
+|---|---|---|
+| 1 | Size_in_SqFt | 75.92 |
+| 2 | Population_Density | 50.83 |
+| 3 | Availability_Status | 25.10 |
+| 4 | BHK | 10.09 |
+| 5 | Floor_No | 8.23 |
+| 6 | Nearby_Schools | 5.67 |
+| 7 | Nearby_Hospitals | 5.49 |
+| 8 | Infra_Growth_Score | 4.62 |
+| 9 | Age_of_Property | 4.56 |
+| 10 | Mall_Distance_km | 4.33 |
+
+---
+
+## 🗂️ Project Structure
+
+```
+AI_Real_Estate_system/
+├── dashboard/
+│   ├── app.py                      # Main Streamlit entry point
+│   ├── engines/
+│   │   ├── predictor.py            # ML prediction engine
+│   │   ├── recommendation.py       # BUY/HOLD/SELL logic
+│   │   ├── risk_engine.py          # Risk scoring engine
+│   │   └── forecaster.py           # 1/3/5 year price forecasting
+│   └── pages/
+│       ├── 01_overview.py          # Project overview
+│       ├── 02_eda.py               # EDA dashboard
+│       ├── 03_prediction.py        # Price prediction
+│       ├── 04_recommendation.py    # Investment recommendation
+│       ├── 05_risk.py              # Risk analysis
+│       ├── 06_forecast.py          # Future price forecast
+│       ├── 07_explainability.py    # SHAP explainability
+│       ├── 08_comparison.py        # Property comparison
+│       ├── 09_market_insights.py   # Market insights
+│       ├── 10_ranking.py           # Property ranking
+│       ├── 11_analyzer.py          # Real-time CSV analyzer
+│       └── 12_chatbot.py           # AI chat assistant (PropBot)
+├── data/
+│   ├── raw/
+|   |   └── india_housing_prices.csv             
+│   └── processed/                  # Generated by running notebooks
+│       ├── cleaned_df.csv
+│       ├── model_df.csv
+│       ├── model_df_scaled.csv
+│       └── model_df_minmax.csv
+├── models/                         # Trained model artifacts
+│   ├── best_model.pkl              # XGBoost (R²=0.9769)
+│   ├── linear_regression.pkl
+│   ├── scaler.pkl
+│   ├── shap_explainer.pkl
+│   ├── shap_importance.csv
+│   ├── shap_sample.csv
+│   ├── shap_values.npy
+│   └── feature_columns.json
+├── notebooks/
+│   ├── 01_data_inspection_&_cleaning.ipynb
+│   ├── 02_feature_engineering.ipynb
+│   ├── 03_eda.ipynb
+│   ├── 04_model_training.ipynb
+│   └── 05_explainabilty.ipynb
+└── reports/                        # Project documentation (PDFs)
+```
+
+---
+
+## 🚀 Setup & Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOURUSERNAME/AI_Real_Estate_system.git
+cd AI_Real_Estate_system
+```
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Download the dataset
+Download from [Kaggle](https://www.kaggle.com/datasets/ankushpanday1/india-house-price-prediction) and place at:
+```
+data/raw/india_housing_prices.csv
+```
+
+### 4. Run notebooks in order
+```bash
+# Run these in Jupyter to generate processed data and model files
+notebooks/01_data_inspection_&_cleaning.ipynb
+notebooks/02_feature_engineering.ipynb
+notebooks/03_eda.ipynb
+notebooks/04_model_training.ipynb
+notebooks/05_explainabilty.ipynb
+```
+
+### 5. Launch the dashboard
+```bash
+cd dashboard
+streamlit run app.py
+```
+
+---
+
+## 🤖 AI Chat Assistant (PropBot)
+
+PropBot supports **6 AI providers** — use whichever API key you have:
+
+| Provider | Model | Cost |
+|---|---|---|
+| Groq | Llama 3.3 70B | ✅ Free |
+| Google Gemini | gemini-2.0-flash-lite | ✅ Free tier |
+| Mistral | mistral-small | ✅ Free tier |
+| Cohere | command-r | ✅ Free tier |
+| OpenAI | gpt-4o-mini | Paid |
+| Anthropic Claude | claude-haiku | Paid |
+
+Get a **free Groq API key** (recommended) at [console.groq.com](https://console.groq.com/keys) — no credit card needed.
+
+Enter the key in the chatbot sidebar at runtime. No hardcoding required.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Tools |
+|---|---|
+| Language | Python 3.10+ |
+| Data Processing | Pandas, NumPy |
+| Machine Learning | Scikit-Learn, XGBoost, CatBoost, LightGBM |
+| Explainability | SHAP |
+| Visualization | Plotly, Matplotlib, Seaborn |
+| Dashboard | Streamlit |
+| AI Chatbot | Groq / Gemini / OpenAI / Mistral / Cohere / Claude APIs |
+| Model Persistence | Joblib |
+
+---
+
+## 📋 Requirements
+
+Install all dependencies:
+```bash
+pip install streamlit pandas numpy scikit-learn xgboost catboost lightgbm shap plotly matplotlib seaborn joblib requests google-genai
+```
+
+Or use:
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 📁 Key Files Reference
+
+| File | Purpose |
+|---|---|
+| `models/best_model.pkl` | Trained XGBoost model |
+| `models/feature_columns.json` | Ordered list of 34 model features |
+| `models/scaler.pkl` | StandardScaler for linear regression |
+| `models/shap_explainer.pkl` | SHAP TreeExplainer |
+| `models/shap_importance.csv` | Global SHAP feature importance |
+| `models/shap_sample.csv` | Sample rows for local SHAP explanation |
+| `data/processed/cleaned_df.csv` | Clean dataset (used by EDA + chatbot) |
+| `data/processed/model_df.csv` | Feature-engineered dataset for tree models |
+
+---
+
+## 📄 License
+
+This project is submitted as part of academic coursework. Dataset credit: [ankushpanday1 on Kaggle](https://www.kaggle.com/datasets/ankushpanday1/india-house-price-prediction).
+
+---
+
+## 👤 Author
+
+**Krish Patel**  
+Data Vidwan · 2026  
+GitHub: [@YOURUSERNAME](https://github.com/kri6228)
