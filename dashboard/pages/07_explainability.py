@@ -13,19 +13,24 @@ import matplotlib.pyplot as plt
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
 
 st.title("🧠 Explainable AI Dashboard")
 st.markdown("---")
-
+MODEL_PATH  = os.path.join(BASE_DIR, "models", "shap_explainer.pkl")
 # ── Load SHAP artifacts ────────────────────────────────────
 @st.cache_resource
 def load_shap():
-    with open('../models/shap_explainer.pkl', 'rb') as f:
+    with open(MODEL_PATH, 'rb') as f:
         explainer = pickle.load(f)
-    shap_values = np.load('../models/shap_values.npy')
-    X_sample = pd.read_csv('../models/shap_sample.csv')
-    shap_importance = pd.read_csv('../models/shap_importance.csv')
-    with open('../models/feature_columns.json', 'r') as f:
+    shap_values = np.load(os.path.join(BASE_DIR, "models", "shap_values.npy"))
+    X_sample = pd.read_csv(os.path.join(BASE_DIR, "models", "shap_sample.csv"))
+    shap_importance = pd.read_csv(os.path.join(BASE_DIR, "models", "shap_importance.csv"))
+    with open(os.path.join(BASE_DIR, "models", "feature_columns.json"), 'r') as f:
         features = json.load(f)
     return explainer, shap_values, X_sample, shap_importance, features
 
@@ -122,7 +127,7 @@ with tab3:
         shap_single = explainer.shap_values(display_df)
         base_value = explainer.expected_value
 
-        model = joblib.load('../models/best_model.pkl')
+        model = joblib.load(MODEL_PATH)
         predicted_price = round(float(model.predict(display_df)[0]), 2)
         st.info(f"Property #{sample_idx} — Predicted Price: ₹{predicted_price}L")
 
