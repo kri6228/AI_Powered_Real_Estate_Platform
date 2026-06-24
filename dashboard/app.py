@@ -76,20 +76,24 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     st.markdown("<hr>", unsafe_allow_html=True)
+    import os
+
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
     PAGES = {
-        "🏠  Overview":               "pages/01_overview.py",
-        "📊  EDA Dashboard":          "pages/02_eda.py",
-        "💰  Price Prediction":       "pages/03_prediction.py",
-        "📈  Recommendation":         "pages/04_recommendation.py",
-        "⚠️  Risk Analysis":          "pages/05_risk.py",
-        "🔮  Price Forecast":         "pages/06_forecast.py",
-        "🧠  Explainable AI":         "pages/07_explainability.py",
-        "🔍  Property Comparison":    "pages/08_comparison.py",
-        "🌆  Market Insights":        "pages/09_market_insights.py",
-        "🏆  Property Ranking":       "pages/10_ranking.py",
-        "⚡  Real-Time Analyzer":     "pages/11_analyzer.py",
-        "🤖  AI Chat Assistant":      "pages/12_chatbot.py",
+        "🏠  Overview":               os.path.join(BASE_DIR, "pages", "01_overview.py"),
+        "📊  EDA Dashboard":          os.path.join(BASE_DIR, "pages", "02_eda.py"),
+        "💰  Price Prediction":       os.path.join(BASE_DIR, "pages", "03_prediction.py"),
+        "📈  Recommendation":         os.path.join(BASE_DIR, "pages", "04_recommendation.py"),
+        "⚠️  Risk Analysis":          os.path.join(BASE_DIR, "pages", "05_risk.py"),
+        "🔮  Price Forecast":         os.path.join(BASE_DIR, "pages", "06_forecast.py"),
+        "🧠  Explainable AI":         os.path.join(BASE_DIR, "pages", "07_explainability.py"),
+        "🔍  Property Comparison":    os.path.join(BASE_DIR, "pages", "08_comparison.py"),
+        "🌆  Market Insights":        os.path.join(BASE_DIR, "pages", "09_market_insights.py"),
+        "🏆  Property Ranking":       os.path.join(BASE_DIR, "pages", "10_ranking.py"),
+        "⚡  Real-Time Analyzer":     os.path.join(BASE_DIR, "pages", "11_analyzer.py"),
+        "🤖  AI Chat Assistant":      os.path.join(BASE_DIR, "pages", "12_chatbot.py"),
     }
 
     selection = st.radio("Navigation", list(PAGES.keys()), label_visibility="collapsed")
