@@ -6,7 +6,15 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import os
 
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
+
+DATA_DIR = os.path.join(BASE_DIR, "data", "processed")
 st.title("📊 Exploratory Data Analysis Dashboard")
 st.markdown("---")
 st.markdown("""
@@ -24,8 +32,8 @@ st.markdown("""
 # ── Load Data ──────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df_raw = pd.read_csv('../data/processed/cleaned_df.csv')
-    df_model = pd.read_csv('../data/processed/model_df.csv')
+    df_raw = pd.read_csv(os.path.join(DATA_DIR, 'cleaned_df.csv'))
+    df_model = pd.read_csv(os.path.join(DATA_DIR, 'model_df.csv'))
     df_raw['Estimated_Price'] = df_model['Estimated_Price'].values
     return df_raw, df_model
 

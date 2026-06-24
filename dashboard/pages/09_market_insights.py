@@ -12,14 +12,21 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from engines.forecaster import CITY_CAGR
 from engines.risk_engine import calculate_risk_score
 
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
+
+DATA_DIR = os.path.join(BASE_DIR, "data", "processed")
 st.title("🌆 Market Insights Dashboard")
 st.markdown("---")
 
 # ── Load Data ──────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df_raw = pd.read_csv('../data/processed/cleaned_df.csv')
-    df_model = pd.read_csv('../data/processed/model_df.csv')
+    df_raw = pd.read_csv(os.path.join(DATA_DIR, 'cleaned_df.csv'))
+    df_model = pd.read_csv(os.path.join(DATA_DIR, 'model_df.csv'))
     df_raw['Estimated_Price'] = df_model['Estimated_Price'].values
     df_raw['Infra_Growth_Score'] = df_model['Infra_Growth_Score'].values
     df_raw['Population_Density'] = df_model['Population_Density'].values

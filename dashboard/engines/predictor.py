@@ -1,15 +1,26 @@
 # dashboard/engines/predictor.py
 
+import os
+
 import joblib
 import json
 import numpy as np
 import pandas as pd
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
+
+MODEL_PATH  = os.path.join(BASE_DIR, "models", "best_model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "models", "scaler.pkl")
+FEATURES_PATH = os.path.join(BASE_DIR, "models", "feature_columns.json")
 
 # Load model and features
-model = joblib.load('../models/best_model.pkl')
-scaler = joblib.load('../models/scaler.pkl')
+model = joblib.load(MODEL_PATH)
+scaler = joblib.load(SCALER_PATH)
 
-with open('../models/feature_columns.json', 'r') as f:
+with open(FEATURES_PATH, 'r') as f:
     FEATURES = json.load(f)
 
 # City tier premium (same as feature engineering)

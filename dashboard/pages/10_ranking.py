@@ -9,6 +9,13 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
+
+DATA_DIR = os.path.join(BASE_DIR, "data", "processed")
 st.title("🏆 Property Ranking System")
 st.markdown("---")
 st.markdown("Automatically ranks top 10 properties from the dataset based on investment potential.")
@@ -16,8 +23,8 @@ st.markdown("Automatically ranks top 10 properties from the dataset based on inv
 # ── Load Data ──────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df_raw = pd.read_csv('../data/processed/cleaned_df.csv')
-    df_model = pd.read_csv('../data/processed/model_df.csv')
+    df_raw = pd.read_csv(os.path.join(DATA_DIR, 'cleaned_df.csv'))
+    df_model = pd.read_csv(os.path.join(DATA_DIR, 'model_df.csv'))
     df_raw['Estimated_Price']    = df_model['Estimated_Price'].values
     df_raw['Infra_Growth_Score'] = df_model['Infra_Growth_Score'].values
     df_raw['Crime_Index']        = df_model['Crime_Index'].values
