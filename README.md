@@ -245,3 +245,4 @@ This project is submitted as part of academic coursework. Dataset credit: [ankus
 **Krish Patel**  
 Data Vidwan · 2026  
 GitHub: [kri6228](https://github.com/kri6228)
+to visit to the application [click here](https://ai-powered-real-estate-platform.streamlit.app/)
