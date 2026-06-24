@@ -1,5 +1,7 @@
 __pycache__/
 .ipynb_checkpoints/
-data/
+data/raw/
+data/processed/model_df_scaled.csv
+data/processed/model_df_minmax.csv
 catboost_info/
 
