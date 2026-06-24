@@ -244,4 +244,4 @@ This project is submitted as part of academic coursework. Dataset credit: [ankus
 
 **Krish Patel**  
 Data Vidwan · 2026  
-GitHub: [@YOURUSERNAME](https://github.com/kri6228)
+GitHub: [kri6228](https://github.com/kri6228)
